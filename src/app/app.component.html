@@ -1,17 +1,27 @@
-
-
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-  }
-</style>
-
-<div class="content" role="main">
-  <h1>Welcome to {{title}}!</h1>
-  <h2>Start editing to see some magic happen</h2>
+<div class="row">
+  <div class="col-7">
+    <form class="form-control" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="project">Project name:</label>
+        <input type="text" id="project" name="project" class="form-control" formControlName="projectName">
+        <p class="text-warning" *ngIf="projectForm.get('projectName')?.hasError('required') && projectForm.get('projectName')?.touched">Project name is required</p>
+        <p class="text-warning" *ngIf="projectForm.get('projectName')?.hasError('nameIsForbidden') && projectForm.get('projectName')?.touched">Project name is forbidden</p>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="form-control" formControlName="email">
+        <p class="text-warning" *ngIf="projectForm.get('email')?.hasError('required') && projectForm.get('email')?.touched">Email is required</p>
+        <p class="text-warning" *ngIf="projectForm.get('email')?.hasError('email') && projectForm.get('email')?.touched">Enter a valid email</p>
+      </div>
+      <div class="form-group">
+        <label for="status">Project status:</label>
+        <select name="status" id="status" class="form-control" formControlName="status">
+          <option *ngFor="let pjStatus of pjStatuses" value="pjStatus">{{pjStatus}}</option>
+        </select>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
